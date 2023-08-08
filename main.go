@@ -66,10 +66,6 @@ func origMain(isOptionSpecified bool) {
 		fmt.Println(color.RedString(fmt.Sprintf("失敗：%s", err.Error())))
 		return
 	}
-	if chart.Engine.Version != 8 {
-		fmt.Println(color.RedString(fmt.Sprintf("失敗：このエンジンはサポートされていません。（バージョン%d）", chart.Engine.Version)))
-		return
-	}
 
 	fmt.Println(color.GreenString("成功"))
 	fmt.Printf("  %s / %s - %s (Lv. %s)\n",
@@ -88,14 +84,7 @@ func origMain(isOptionSpecified bool) {
 
 	fmt.Println(color.GreenString("成功"))
 
-	cwd, err := os.Getwd()
-
-	if err != nil {
-		fmt.Println(color.RedString(fmt.Sprintf("失敗：%s", err.Error())))
-		return
-	}
-
-	formattedOutDir := filepath.Join(cwd, strings.Replace(outDir, "_chartId_", chartId, -1))
+	formattedOutDir := filepath.Join(filepath.Dir(executablePath), strings.Replace(outDir, "_chartId_", chartId, -1))
 	fmt.Printf("出力先ディレクトリ: %s\n", color.CyanString(filepath.Dir(formattedOutDir)))
 
 	fmt.Print("ジャケットをダウンロード中... ")
